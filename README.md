@@ -2,7 +2,7 @@
 
 Welcome to Pompous Python.
 
-This repository hosts a collection of personal Python scripts and projects crafted by PongGone with elegance and finesse.
+This repository contains personal Python scripts and projects crafted by PongGone with elegance and finesse.
 
 ## Overview
 
