@@ -80,7 +80,6 @@ class HostHandlerApp:
                 "Host Name": platform.node(),
                 "Processor": self.get_cpu_info(),
                 "Installed RAM": self.get_formatted_ram_size(psutil.virtual_memory().total),
-                "Device ID": self.get_device_id(),
                 "Product ID": self.get_product_id()
             }
             self.update_logs(host_info)
@@ -194,16 +193,6 @@ class HostHandlerApp:
         elif platform.system() == "Darwin":
             return platform.processor()
         return platform.processor()
-
-    def get_device_id(self):
-        """Retrieve device ID."""
-        if platform.system() == "Windows":
-            try:
-                return socket.gethostname()
-            except Exception as e:
-                print(f"Error retrieving Device ID: {e}")
-                return "N/A"
-        return "N/A"
 
     def get_product_id(self):
         """Retrieve product ID."""
