@@ -49,11 +49,11 @@ class EndpointCheckerApp:
         self.export_logs_button.pack()
 
         # Export logs instructions
-        self.export_logs_instructions_label = tk.Label(root, text="Export Logs:\nPlease select a file format to export the logs to:")
+        self.export_logs_instructions_label = tk.Label(root, text="Export Details:\nFile formats supported")
         self.export_logs_instructions_label.pack()
 
         # File format options
-        self.file_format_options_label = tk.Label(root, text="Options: CSV, JSON")
+        self.file_format_options_label = tk.Label(root, text="CSV, JSON")
         self.file_format_options_label.pack()
 
     def check_endpoint(self):
