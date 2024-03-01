@@ -1,6 +1,7 @@
 # Pompous Python
 
-Welcome to Pompous Python. 
+Welcome to Pompous Python.
+
 This repository hosts a collection of personal Python scripts and projects crafted by PongGone with elegance and finesse.
 
 ## Overview
@@ -26,7 +27,7 @@ cd pompous-python
 
 ## Contributing
 
-Submit pull requests require approval. Report issues, or share your ideas for new projects.
+Pull requests require approval. Report issues, or share your ideas for new projects.
 
 ## License
 
