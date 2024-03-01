@@ -6,7 +6,7 @@ This repository contains personal Python scripts and projects crafted by PongGon
 
 ## Overview
 
-Each script and project within this repository is meticulously crafted to showcase the beauty of Pythonic code.
+Designed for building applications with Python that can be used to help Automate\Solve\Retrieve.
 
 ## Features
 
