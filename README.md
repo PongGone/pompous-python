@@ -2,17 +2,17 @@
 
 Welcome to Pompous Python.
 
-This repository contains personal Python scripts and projects crafted by PongGone with elegance and finesse.
+This repository contains personal Python scripts and projects crafted by PongGone.
 
 ## Overview
 
-Designed for building applications with Python that can be used to help Automate\Solve\Retrieve.
+Building applications with Python that can be used to help Automate\Solve\Retrieve data or tasks.
 
 ## Features
 
 - **HelpDesk Solutions**: Discover Python scripts that solve common problems with simple GUIs.
-- **Artistic Expressions**: Explore projects that demonstrate the artistic side of programming in Python.
-- **Educational Resources**: Learn from commented code with explanations that accompany each script and project.
+- **Expressions**: Explore projects that demonstrate local value with programming in Python.
+- **Educational**: Learn from commented code with explanations that accompany each script and project.
 
 ## Getting Started
 
