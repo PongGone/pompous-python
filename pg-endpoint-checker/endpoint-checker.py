@@ -4,6 +4,7 @@ import re
 from socket import gethostbyname, gaierror
 import webbrowser
 from tkinter import filedialog
+from tkinter import messagebox
 
 class EndpointCheckerApp:
     def __init__(self, root):
@@ -59,14 +60,29 @@ class EndpointCheckerApp:
     def check_endpoint(self):
         endpoint = self.endpoint_entry.get()
         try:
+            # Check if the endpoint is an IP address or a domain name
             ip_pattern = re.compile(r'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$')
             if ip_pattern.match(endpoint):
-                url = f"http://{endpoint}"
+                # If it's an IP address, check if it starts with 'http://' or 'https://'
+                if endpoint.startswith("http://") or endpoint.startswith("https://"):
+                    url = endpoint
+                else:
+                    # Assume it's an IP address without protocol prefix
+                    url = f"http://{endpoint}"
+                    
                 endpoint_ip = endpoint
             else:
-                endpoint_ip = gethostbyname(endpoint)
-                url = f"http://{endpoint_ip}"
-            
+                # Check if the endpoint starts with 'http://' or 'https://'
+                if endpoint.startswith("http://") or endpoint.startswith("https://"):
+                    url = endpoint
+                else:
+                    # Assume it's a domain name without protocol prefix
+                    url = f"https://{endpoint}"
+                    
+                # Remove protocol prefix for DNS resolution
+                endpoint_without_protocol = endpoint.replace("http://", "").replace("https://", "")
+                endpoint_ip = gethostbyname(endpoint_without_protocol)
+
             response = requests.get(url)
             status_code = response.status_code
             response_time = response.elapsed.total_seconds()
@@ -95,11 +111,11 @@ class EndpointCheckerApp:
                 try:
                     with open(file_path, 'w') as file:
                         file.write(logs)
-                    tk.messagebox.showinfo("Export Logs", "Logs exported successfully.")
+                    messagebox.showinfo("Export Logs", "Logs exported successfully.")
                 except Exception as e:
-                    tk.messagebox.showerror("Export Logs", f"Error exporting logs: {str(e)}")
+                    messagebox.showerror("Export Logs", f"Error exporting logs: {str(e)}")
         else:
-            tk.messagebox.showwarning("Export Logs", "No logs to export.")
+            messagebox.showwarning("Export Logs", "No logs to export.")
 
     def get_status_description(self, status_code):
         descriptions = {
