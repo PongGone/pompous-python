@@ -83,14 +83,17 @@ class EndpointCheckerApp:
                 endpoint_without_protocol = endpoint.replace("http://", "").replace("https://", "")
                 endpoint_ip = gethostbyname(endpoint_without_protocol)
 
+            request_time = datetime.now()
             response = requests.get(url)
+            response_time = datetime.now()
+
             status_code = response.status_code
-            response_time = response.elapsed.total_seconds()
+            response_elapsed = response_time - request_time
 
             request_method = response.request.method
             request_url = response.request.url
 
-            log_message = f"Endpoint: {endpoint_ip}\nResponse Time: {response_time:.2f} seconds\nHTTP Response Code: {status_code} - {self.get_status_description(status_code)}"
+            log_message = f"Endpoint: {endpoint_ip}\nRequest Time: {request_time}\nResponse Time: {response_time}\nElapsed Time: {response_elapsed}\nHTTP Response Code: {status_code} - {self.get_status_description(status_code)}"
             log_message += f"\nRequest Method: {request_method}\nRequest URL: {request_url}\n"
 
             self.update_user_input_logs(log_message)
@@ -166,15 +169,20 @@ class EndpointCheckerApp:
 
     def check_background_endpoint(self, host):
         try:
+            request_time = datetime.now()
             response = requests.get(host, verify=True, timeout=(0.5, 0.5))
-            timestamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S.%f")[:-3]
-            log_message = f"Background Check - Endpoint: {host}\nTimestamp: {timestamp}\nResponse Time: {response.elapsed.total_seconds():.2f} seconds\nHTTP Response Code: {response.status_code} - {self.get_status_description(response.status_code)}\n"
+            response_time = datetime.now()
+            response_elapsed = response_time - request_time
+            
+            log_message = f"Background Check - Endpoint: {host}\nRequest Time: {request_time}\nResponse Time: {response_time}\nElapsed Time: {response_elapsed}\nHTTP Response Code: {response.status_code} - {self.get_status_description(response.status_code)}\n"
             self.update_background_logs(log_message)
         except (requests.ConnectionError, requests.Timeout) as err:
-            log_message = f"Background Check - Error checking endpoint {host}: {err}\n"
+            timestamp = datetime.now()
+            log_message = f"Background Check - Error checking endpoint {host}: {err}\nTimestamp: {timestamp}\n"
             self.update_background_logs(log_message)
         except Exception as e:
-            log_message = f"Background Check - Error checking endpoint {host}: {str(e)}\n"
+            timestamp = datetime.now()
+            log_message = f"Background Check - Error checking endpoint {host}: {str(e)}\nTimestamp: {timestamp}\n"
             self.update_background_logs(log_message)
 
     def update_user_input_logs(self, log_message):
