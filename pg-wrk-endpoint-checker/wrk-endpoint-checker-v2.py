@@ -7,6 +7,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 import threading
 import time
+from datetime import datetime
 
 class EndpointCheckerApp:
     def __init__(self, root):
@@ -166,7 +167,8 @@ class EndpointCheckerApp:
     def check_background_endpoint(self, host):
         try:
             response = requests.get(host, verify=True, timeout=(0.5, 0.5))
-            log_message = f"Background Check - Endpoint: {host}\nResponse Time: {response.elapsed.total_seconds():.2f} seconds\nHTTP Response Code: {response.status_code} - {self.get_status_description(response.status_code)}\n"
+            timestamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S.%f")[:-3]
+            log_message = f"Background Check - Endpoint: {host}\nTimestamp: {timestamp}\nResponse Time: {response.elapsed.total_seconds():.2f} seconds\nHTTP Response Code: {response.status_code} - {self.get_status_description(response.status_code)}\n"
             self.update_background_logs(log_message)
         except (requests.ConnectionError, requests.Timeout) as err:
             log_message = f"Background Check - Error checking endpoint {host}: {err}\n"
